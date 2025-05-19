@@ -1,0 +1,98 @@
+class LoginSession {
+    int sessionId;
+    int employeeId;
+    java.util.Date loginTime;
+    java.util.Date logoutTime;
+    boolean isActive;
+
+    void login() {
+        isActive = true;
+        loginTime = new java.util.Date();
+    }
+
+    void logout() {
+        isActive = false;
+        logoutTime = new java.util.Date();
+    }
+}
+
+class Employee {
+    int employeeId;
+    String firstName;
+    String lastName;
+    String position;
+    double basicSalary;
+    double hourlyRate;
+    String department;
+    String contactNumber;
+    String address;
+    String sssNumber;
+    String philHealthNumber;
+    String tinNumber;
+    String pagIbigNumber;
+    double mealAllowance;
+
+    double calculateSalary() {
+        // Example logic: just return basic salary + meal allowance
+        return basicSalary + mealAllowance;
+    }
+
+    String getDetails() {
+        return firstName + " " + lastName + ", Position: " + position;
+    }
+}
+
+class Attendance {
+    int attendanceId;
+    int employeeId;
+    java.util.Date date;
+    double hoursWorked;
+    boolean isPresent;
+
+    void markAttendance() {
+        isPresent = true;
+        date = new java.util.Date();
+    }
+
+    boolean getAttendance() {
+        return isPresent;
+    }
+}
+
+class Payroll {
+    int payrollId;
+    int employeeId;
+    double grossSalary;
+    double netSalary;
+    double deductions;
+    double allowances;
+    double mealAllowance;
+
+    double calculateDeductions() {
+        return deductions;
+    }
+
+    double getTotalDeductions() {
+        return deductions;
+    }
+}
+
+class Deductions {
+    int deductionId;
+    int employeeId;
+    double tax;
+    double sss;
+    double philHealth;
+    double pagIbig;
+    double totalDeductions;
+
+    void generatePayroll() {
+        // Placeholder logic
+        totalDeductions = tax + sss + philHealth + pagIbig;
+    }
+
+    double calculateNetSalary() {
+        return totalDeductions;
+    }
+}
+
