@@ -1,0 +1,73 @@
+import java.util.*;
+
+class User {
+    String username;
+    String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public boolean login(String username, String password) {
+        return this.username.equals(username) && this.password.equals(password);
+    }
+}
+
+class Attendance {
+    String date;
+
+    public Attendance(String date) {
+        this.date = date;
+    }
+}
+
+class PayrollCalculator {
+    private static final double DAILY_RATE = 500.0;  // Halimbawa lang
+
+    public static double computeSalary(int daysPresent) {
+        return daysPresent * DAILY_RATE;
+    }
+}
+
+public class MotorphApp {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Sample user
+        User user = new User("admin", "1234");
+
+        System.out.print("Enter username: ");
+        String inputUsername = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String inputPassword = scanner.nextLine();
+
+        if (user.login(inputUsername, inputPassword)) {
+            System.out.println("Login successful!\n");
+
+            List<Attendance> attendanceList = new ArrayList<>();
+            String choice;
+            do {
+                System.out.print("Enter date of attendance (YYYY-MM-DD): ");
+                String date = scanner.nextLine();
+                attendanceList.add(new Attendance(date));
+
+                System.out.print("Add another date? (yes/no): ");
+                choice = scanner.nextLine().toLowerCase();
+            } while (choice.equals("yes"));
+
+            int daysPresent = attendanceList.size();
+            double salary = PayrollCalculator.computeSalary(daysPresent);
+
+            System.out.println("\nSummary:");
+            System.out.println("Days Present: " + daysPresent);
+            System.out.println("Total Salary: ₱" + salary);
+        } else {
+            System.out.println("Login failed.");
+        }
+
+        scanner.close();
+    }
+}
