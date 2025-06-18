@@ -1,0 +1,63 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class MilestoneCalculatorGUI extends JFrame {
+    private JTextField tfMilestone1, tfMilestone2, tfTerminal;
+    private JLabel lblResult;
+
+    public MilestoneCalculatorGUI() {
+        setTitle("Milestone Grade Calculator");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridLayout(5, 2, 10, 10));
+
+        add(new JLabel("Milestone 1 (Max 25):"));
+        tfMilestone1 = new JTextField();
+        add(tfMilestone1);
+
+        add(new JLabel("Milestone 2 (Max 40):"));
+        tfMilestone2 = new JTextField();
+        add(tfMilestone2);
+
+        add(new JLabel("Terminal Assessment (Max 35):"));
+        tfTerminal = new JTextField();
+        add(tfTerminal);
+
+        JButton btnCalculate = new JButton("Calculate Grade");
+        add(btnCalculate);
+
+        lblResult = new JLabel("Total Grade: ");
+        add(lblResult);
+
+        btnCalculate.addActionListener(e -> calculateGrade());
+
+        setVisible(true);
+    }
+
+    private void calculateGrade() {
+        try {
+            double m1 = validateInput(tfMilestone1.getText(), 25);
+            double m2 = validateInput(tfMilestone2.getText(), 40);
+            double terminal = validateInput(tfTerminal.getText(), 35);
+
+            double total = m1 + m2 + terminal;
+            lblResult.setText("Total Grade: " + total + " / 100");
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private double validateInput(String input, double max) {
+        double value = Double.parseDouble(input);
+        if (value < 0 || value > max) {
+            throw new IllegalArgumentException("Input must be between 0 and " + max);
+        }
+        return value;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new MilestoneCalculatorGUI());
+    }
+}
